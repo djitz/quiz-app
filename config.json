@@ -2,19 +2,19 @@
   "questionSets": [
     {
       "id": "general-knowledge",
-      "file": "general-knowledge.json",
+      "file": "question-sets/general-knowledge.json",
       "name": "General Knowledge",
       "description": "Test your basic knowledge on various topics"
     },
     {
       "id": "science",
-      "file": "science.json",
+      "file": "question-sets/science.json",
       "name": "Science",
       "description": "Questions about science and nature"
     },
     {
       "id": "history",
-      "file": "history.json",
+      "file": "question-sets/history.json",
       "name": "History",
       "description": "Historical events and figures"
     }
