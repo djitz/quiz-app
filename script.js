@@ -5,7 +5,7 @@ let score = 0;
 let timer;
 let timeLeft;
 let selectedOption = null;
-let currentCategory = 'general-knowledge.json'; // Default category
+let selectedCategories = []; // Changed to array to track multiple selections
 let randomizeQuestions = true; // Default to randomizing questions
 let questionSets = [];
 
@@ -25,6 +25,7 @@ const totalEl = document.getElementById('total');
 const percentageEl = document.getElementById('percentage');
 const randomizeQuestionsCheckbox = document.getElementById('randomize-questions');
 const categoriesContainer = document.getElementById('categories-container');
+const startQuizBtn = document.getElementById('start-quiz-btn');
 
 // Load question sets configuration
 async function loadQuestionSetsConfig() {
@@ -51,32 +52,50 @@ async function loadQuestionSetsConfig() {
     }
 }
 
-// Render category buttons dynamically
+// Render category checkboxes dynamically
 function renderCategories() {
     categoriesContainer.innerHTML = ''; // Clear existing content
     
     questionSets.forEach(set => {
-        const button = document.createElement('button');
-        button.className = 'category-btn';
-        button.dataset.category = set.file;
-        button.innerHTML = `
-            <h3>${set.name}</h3>
-            <p>${set.description}</p>
+        const item = document.createElement('div');
+        item.className = 'category-item';
+        item.dataset.category = set.file;
+        
+        item.innerHTML = `
+            <input type="checkbox" class="category-checkbox" id="cat-${set.id}">
+            <div class="category-content">
+                <h3>${set.name}</h3>
+                <p>${set.description}</p>
+            </div>
         `;
-        button.addEventListener('click', () => {
-            currentCategory = set.file;
-            // Check the randomizeQuestions checkbox state
-            randomizeQuestions = randomizeQuestionsCheckbox.checked;
-            startQuiz();
+        
+        const checkbox = item.querySelector('.category-checkbox');
+        checkbox.addEventListener('change', (e) => {
+            if (e.target.checked) {
+                // Add to selected categories
+                if (!selectedCategories.includes(set.file)) {
+                    selectedCategories.push(set.file);
+                }
+                item.classList.add('selected');
+            } else {
+                // Remove from selected categories
+                selectedCategories = selectedCategories.filter(cat => cat !== set.file);
+                item.classList.remove('selected');
+            }
+            // Update start button state based on selections
+            startQuizBtn.disabled = selectedCategories.length === 0;
         });
         
-        categoriesContainer.appendChild(button);
+        categoriesContainer.appendChild(item);
     });
     
     // Update the randomizeQuestions variable when checkbox changes
     randomizeQuestionsCheckbox.addEventListener('change', () => {
         randomizeQuestions = randomizeQuestionsCheckbox.checked;
     });
+    
+    // Add event listener to start quiz button
+    startQuizBtn.addEventListener('click', startQuiz);
 }
 
 // Initialize the quiz
@@ -141,8 +160,8 @@ async function initQuiz() {
 
 // Start the quiz
 async function startQuiz() {
-    // Load the selected category's questions
-    await loadQuizData();
+    // Combine questions from all selected categories
+    await loadCombinedQuizData();
     
     categoryScreen.classList.remove('active');
     quizScreen.classList.add('active');
@@ -150,6 +169,50 @@ async function startQuiz() {
     score = 0;
     showQuestion();
     startTimer();
+}
+
+// Load combined quiz data from multiple selected categories
+async function loadCombinedQuizData() {
+    quizData = [];
+    
+    // Load questions from each selected category
+    for (const category of selectedCategories) {
+        try {
+            const response = await fetch(category);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const categoryData = await response.json();
+            quizData = quizData.concat(categoryData); // Combine all questions
+        } catch (error) {
+            console.error(`Error loading questions from ${category}:`, error);
+        }
+    }
+    
+    // Randomize question order if the option is selected
+    if (randomizeQuestions && quizData.length > 0) {
+        quizData = shuffleArray(quizData);
+    }
+    
+    totalQuestionsEl.textContent = quizData.length;
+    
+    // If no questions were loaded successfully
+    if (quizData.length === 0) {
+        // Fallback to default questions if no categories loaded
+        quizData = [
+            {
+                question: "No questions loaded. Please select valid categories.",
+                options: [
+                    {"id": "x1", "text": "Retry"},
+                    {"id": "x2", "text": "Reload page"},
+                    {"id": "x3", "text": "Check selections"},
+                    {"id": "x4", "text": "Go back"}
+                ],
+                answer: "x4"
+            }
+        ];
+        totalQuestionsEl.textContent = quizData.length;
+    }
 }
 
 // Function to shuffle an array (Fisher-Yates algorithm)
@@ -291,6 +354,9 @@ function restartQuiz() {
     resultScreen.classList.remove('active');
     categoryScreen.classList.add('active');
     clearInterval(timer);
+    selectedCategories = []; // Clear selected categories
+    // Re-render categories to reset selection state
+    renderCategories();
 }
 
 // Initialize the app when page loads

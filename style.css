@@ -73,7 +73,7 @@ p {
     box-shadow: none;
 }
 
-.category-btn {
+.category-item {
     display: block;
     width: 100%;
     max-width: 400px;
@@ -88,22 +88,41 @@ p {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.category-btn:hover {
+.category-item:hover {
     transform: translateY(-5px);
     border-color: #2575fc;
     box-shadow: 0 8px 15px rgba(37, 117, 252, 0.2);
 }
 
-.category-btn h3 {
+.category-item.selected {
+    border-color: #28a745;
+    background-color: #f8fff9;
+    box-shadow: 0 8px 15px rgba(40, 167, 69, 0.2);
+}
+
+.category-item h3 {
     color: #333;
-    margin: 0 0 10px 0;
+    margin: 0 0 10px 30px; /* Add margin for checkbox space */
     font-size: 1.5rem;
 }
 
-.category-btn p {
+.category-item p {
     color: #666;
-    margin: 0;
+    margin: 0 0 0 30px; /* Add margin for checkbox space */
     font-size: 1rem;
+}
+
+.category-checkbox {
+    position: absolute;
+    margin-left: 10px;
+    margin-top: 5px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.category-content {
+    margin-left: 30px;
 }
 
 .categories-container {
@@ -130,6 +149,10 @@ p {
     width: 20px;
     height: 20px;
     cursor: pointer;
+}
+
+#start-quiz-btn {
+    margin-top: 20px;
 }
 
 .quiz-header {
