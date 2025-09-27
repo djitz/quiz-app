@@ -1,0 +1,52 @@
+[
+  {
+    "question": "Which ancient wonder of the world was located in Alexandria?",
+    "options": [
+      {"id": "ah1", "text": "Hanging Gardens of Babylon"},
+      {"id": "ah2", "text": "Lighthouse of Alexandria"},
+      {"id": "ah3", "text": "Statue of Zeus at Olympia"},
+      {"id": "ah4", "text": "Temple of Artemis at Ephesus"}
+    ],
+    "answer": "ah2"
+  },
+  {
+    "question": "Who was the first emperor of Rome?",
+    "options": [
+      {"id": "ah5", "text": "Julius Caesar"},
+      {"id": "ah6", "text": "Augustus"},
+      {"id": "ah7", "text": "Nero"},
+      {"id": "ah8", "text": "Trajan"}
+    ],
+    "answer": "ah6"
+  },
+  {
+    "question": "In which ancient civilization was the game of Go invented?",
+    "options": [
+      {"id": "ah9", "text": "Ancient Egypt"},
+      {"id": "ah10", "text": "Ancient Greece"},
+      {"id": "ah11", "text": "Ancient China"},
+      {"id": "ah12", "text": "Ancient India"}
+    ],
+    "answer": "ah11"
+  },
+  {
+    "question": "What was the primary writing system used in ancient Mesopotamia?",
+    "options": [
+      {"id": "ah13", "text": "Hieroglyphics"},
+      {"id": "ah14", "text": "Cuneiform"},
+      {"id": "ah15", "text": "Phoenician alphabet"},
+      {"id": "ah16", "text": "Linear B"}
+    ],
+    "answer": "ah14"
+  },
+  {
+    "question": "Which pharaoh ordered the construction of the Great Pyramid of Giza?",
+    "options": [
+      {"id": "ah17", "text": "Tutankhamun"},
+      {"id": "ah18", "text": "Ramses II"},
+      {"id": "ah19", "text": "Khufu"},
+      {"id": "ah20", "text": "Akhenaten"}
+    ],
+    "answer": "ah19"
+  }
+]

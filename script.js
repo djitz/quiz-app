@@ -5,11 +5,11 @@ let score = 0;
 let timer;
 let timeLeft;
 let selectedOption = null;
-let selectedCategories = []; // Changed to array to track multiple selections
+let selectedCategorySets = []; // Changed to array to track selected question sets
 let randomizeQuestions = true; // Default to randomizing questions
 let questionCount = 5; // Default number of questions
-let questionSets = [];
-let maxQuestionsAvailable = 0; // Track max questions based on selected categories
+let categories = []; // Changed from questionSets to categories for hierarchical structure
+let maxQuestionsAvailable = 0; // Track max questions based on selected question sets
 
 // DOM elements
 const categoryScreen = document.getElementById('category-screen');
@@ -27,11 +27,12 @@ const totalEl = document.getElementById('total');
 const percentageEl = document.getElementById('percentage');
 const randomizeQuestionsCheckbox = document.getElementById('randomize-questions');
 const categoriesContainer = document.getElementById('categories-container');
+const subcategoriesContainer = document.getElementById('subcategories-container');
 const startQuizBtn = document.getElementById('start-quiz-btn');
 const questionCountInput = document.getElementById('question-count');
 const maxQuestionsInfo = document.getElementById('max-questions-info');
 
-// Load question sets configuration
+// Load categories configuration
 async function loadQuestionSetsConfig() {
     try {
         const response = await fetch('config.json');
@@ -39,17 +40,24 @@ async function loadQuestionSetsConfig() {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         const config = await response.json();
-        questionSets = config.questionSets;
+        categories = config.categories;
         renderCategories();
     } catch (error) {
         console.error('Error loading question sets configuration:', error);
-        // Fallback to default question sets if config loading fails
-        questionSets = [
+        // Fallback to default categories if config loading fails
+        categories = [
             {
-                id: "general-knowledge",
-                file: "general-knowledge.json",
-                name: "General Knowledge",
-                description: "Test your basic knowledge on various topics"
+                id: "knowledge",
+                name: "Knowledge",
+                description: "Test your knowledge on various topics",
+                sets: [
+                    {
+                        id: "general-knowledge",
+                        file: "question-sets/general-knowledge.json",
+                        name: "General Knowledge",
+                        description: "Basic knowledge questions"
+                    }
+                ]
             }
         ];
         renderCategories();
@@ -74,62 +82,64 @@ function updateMaxQuestionsInfo() {
     }
 }
 
-// Calculate max questions available based on selected categories
+// Calculate max questions available based on selected question sets
 async function calculateMaxQuestions() {
     maxQuestionsAvailable = 0;
     
-    for (const category of selectedCategories) {
+    for (const questionSet of selectedCategorySets) {
         try {
-            const response = await fetch(category);
+            const response = await fetch(questionSet);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-            const categoryData = await response.json();
-            maxQuestionsAvailable += categoryData.length;
+            const setData = await response.json();
+            maxQuestionsAvailable += setData.length;
         } catch (error) {
-            console.error(`Error calculating questions from ${category}:`, error);
+            console.error(`Error calculating questions from ${questionSet}:`, error);
         }
     }
     
     updateMaxQuestionsInfo();
 }
 
-// Render category checkboxes dynamically
+// Render main categories dynamically
 function renderCategories() {
     categoriesContainer.innerHTML = ''; // Clear existing content
     
-    questionSets.forEach(set => {
+    categories.forEach(category => {
         const item = document.createElement('div');
         item.className = 'category-item';
-        item.dataset.category = set.file;
+        item.dataset.categoryId = category.id;
         
         item.innerHTML = `
-            <input type="checkbox" class="category-checkbox" id="cat-${set.id}">
+            <input type="checkbox" class="category-checkbox" id="cat-${category.id}">
             <div class="category-content">
-                <h3>${set.name}</h3>
-                <p>${set.description}</p>
+                <h3>${category.name}</h3>
+                <p>${category.description}</p>
             </div>
         `;
         
         const checkbox = item.querySelector('.category-checkbox');
-        checkbox.addEventListener('change', async (e) => {
+        checkbox.addEventListener('change', (e) => {
             if (e.target.checked) {
-                // Add to selected categories
-                if (!selectedCategories.includes(set.file)) {
-                    selectedCategories.push(set.file);
-                }
+                // Show the subcategories for this category
+                showSubcategories(category);
                 item.classList.add('selected');
             } else {
-                // Remove from selected categories
-                selectedCategories = selectedCategories.filter(cat => cat !== set.file);
+                // Hide the subcategories for this category
+                hideSubcategories(category);
+                // Remove any selected sets from this category
+                selectedCategorySets = selectedCategorySets.filter(set => 
+                    !category.sets.some(subset => subset.file === set)
+                );
                 item.classList.remove('selected');
             }
             
             // Calculate max questions available based on selections
-            await calculateMaxQuestions();
-            
-            // Update start button state based on selections
-            startQuizBtn.disabled = selectedCategories.length === 0;
+            calculateMaxQuestions().then(() => {
+                // Update start button state based on selections
+                startQuizBtn.disabled = selectedCategorySets.length === 0;
+            });
         });
         
         categoriesContainer.appendChild(item);
@@ -155,6 +165,72 @@ function renderCategories() {
     
     // Add event listener to start quiz button
     startQuizBtn.addEventListener('click', startQuiz);
+}
+
+// Show subcategories for a specific category
+function showSubcategories(category) {
+    let subContainer = document.querySelector(`.subcategory-container[data-category="${category.id}"]`);
+    
+    // Create container if it doesn't exist
+    if (!subContainer) {
+        subContainer = document.createElement('div');
+        subContainer.className = 'subcategory-container';
+        subContainer.dataset.category = category.id;
+        
+        subContainer.innerHTML = `
+            <h3>${category.name} Sets:</h3>
+        `;
+        
+        category.sets.forEach(set => {
+            const subItem = document.createElement('div');
+            subItem.className = 'subcategory-item';
+            subItem.dataset.setFile = set.file;
+            
+            subItem.innerHTML = `
+                <input type="checkbox" class="subcategory-checkbox" id="set-${set.id}">
+                <div class="subcategory-content">
+                    <h4>${set.name}</h4>
+                    <p>${set.description}</p>
+                </div>
+            `;
+            
+            const subCheckbox = subItem.querySelector('.subcategory-checkbox');
+            subCheckbox.addEventListener('change', (e) => {
+                if (e.target.checked) {
+                    // Add to selected question sets
+                    if (!selectedCategorySets.includes(set.file)) {
+                        selectedCategorySets.push(set.file);
+                    }
+                    subItem.classList.add('selected');
+                } else {
+                    // Remove from selected question sets
+                    selectedCategorySets = selectedCategorySets.filter(file => file !== set.file);
+                    subItem.classList.remove('selected');
+                }
+                
+                // Calculate max questions available based on selections
+                calculateMaxQuestions().then(() => {
+                    // Update start button state based on selections
+                    startQuizBtn.disabled = selectedCategorySets.length === 0;
+                });
+            });
+            
+            subContainer.appendChild(subItem);
+        });
+        
+        subcategoriesContainer.appendChild(subContainer);
+    }
+    
+    // Always ensure the container is visible when category is selected
+    subContainer.classList.add('active');
+}
+
+// Hide subcategories for a specific category
+function hideSubcategories(category) {
+    const subContainer = document.querySelector(`.subcategory-container[data-category="${category.id}"]`);
+    if (subContainer) {
+        subContainer.classList.remove('active');
+    }
 }
 
 // Initialize the quiz
@@ -230,21 +306,21 @@ async function startQuiz() {
     startTimer();
 }
 
-// Load combined quiz data from multiple selected categories
+// Load combined quiz data from multiple selected question sets
 async function loadCombinedQuizData() {
     quizData = [];
     
-    // Load questions from each selected category
-    for (const category of selectedCategories) {
+    // Load questions from each selected question set
+    for (const questionSet of selectedCategorySets) {
         try {
-            const response = await fetch(category);
+            const response = await fetch(questionSet);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-            const categoryData = await response.json();
-            quizData = quizData.concat(categoryData); // Combine all questions
+            const setData = await response.json();
+            quizData = quizData.concat(setData); // Combine all questions
         } catch (error) {
-            console.error(`Error loading questions from ${category}:`, error);
+            console.error(`Error loading questions from ${questionSet}:`, error);
         }
     }
     
@@ -264,10 +340,10 @@ async function loadCombinedQuizData() {
     
     // If no questions were loaded successfully
     if (quizData.length === 0) {
-        // Fallback to default questions if no categories loaded
+        // Fallback to default questions if no question sets loaded
         quizData = [
             {
-                question: "No questions loaded. Please select valid categories.",
+                question: "No questions loaded. Please select valid question sets.",
                 options: [
                     {"id": "x1", "text": "Retry"},
                     {"id": "x2", "text": "Reload page"},
@@ -420,8 +496,9 @@ function restartQuiz() {
     resultScreen.classList.remove('active');
     categoryScreen.classList.add('active');
     clearInterval(timer);
-    selectedCategories = []; // Clear selected categories
+    selectedCategorySets = []; // Clear selected question sets
     maxQuestionsAvailable = 0; // Reset max question count
+    subcategoriesContainer.innerHTML = ''; // Clear all subcategories
     // Re-render categories to reset selection state
     renderCategories();
 }

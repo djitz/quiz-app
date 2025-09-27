@@ -1,0 +1,52 @@
+[
+  {
+    "question": "What is the atomic number of Carbon?",
+    "options": [
+      {"id": "as1", "text": "4"},
+      {"id": "as2", "text": "6"},
+      {"id": "as3", "text": "8"},
+      {"id": "as4", "text": "12"}
+    ],
+    "answer": "as2"
+  },
+  {
+    "question": "Which force is responsible for radioactive decay?",
+    "options": [
+      {"id": "as5", "text": "Gravitational Force"},
+      {"id": "as6", "text": "Electromagnetic Force"},
+      {"id": "as7", "text": "Strong Nuclear Force"},
+      {"id": "as8", "text": "Weak Nuclear Force"}
+    ],
+    "answer": "as8"
+  },
+  {
+    "question": "What is the most abundant element in the universe?",
+    "options": [
+      {"id": "as9", "text": "Helium"},
+      {"id": "as10", "text": "Oxygen"},
+      {"id": "as11", "text": "Hydrogen"},
+      {"id": "as12", "text": "Carbon"}
+    ],
+    "answer": "as11"
+  },
+  {
+    "question": "What is the speed of light in vacuum approximately?",
+    "options": [
+      {"id": "as13", "text": "299,792,458 m/s"},
+      {"id": "as14", "text": "300,000,000 m/s"},
+      {"id": "as15", "text": "299,000,000 m/s"},
+      {"id": "as16", "text": "310,000,000 m/s"}
+    ],
+    "answer": "as13"
+  },
+  {
+    "question": "What is the pH of pure water at 25°C?",
+    "options": [
+      {"id": "as17", "text": "6.5"},
+      {"id": "as18", "text": "7.0"},
+      {"id": "as19", "text": "7.5"},
+      {"id": "as20", "text": "8.0"}
+    ],
+    "answer": "as18"
+  }
+]

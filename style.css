@@ -125,6 +125,69 @@ p {
     margin-left: 30px;
 }
 
+/* Subcategory styles */
+.subcategory-container {
+    margin-top: 10px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    display: none; /* Initially hidden */
+}
+
+.subcategory-container.active {
+    display: block;
+}
+
+.subcategory-item {
+    display: block;
+    width: 100%;
+    max-width: 380px; /* Slightly narrower to account for parent padding */
+    margin: 10px auto;
+    padding: 15px;
+    text-align: left;
+    background: white;
+    border: 2px solid #dee2e6;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.subcategory-item:hover {
+    border-color: #2575fc;
+    box-shadow: 0 4px 8px rgba(37, 117, 252, 0.15);
+}
+
+.subcategory-item.selected {
+    border-color: #28a745;
+    background-color: #f8fff9;
+}
+
+.subcategory-item h4 {
+    color: #495057;
+    margin: 0 0 5px 30px; /* Add margin for checkbox space */
+    font-size: 1.2rem;
+}
+
+.subcategory-item p {
+    color: #6c757d;
+    margin: 0 0 0 30px; /* Add margin for checkbox space */
+    font-size: 0.9rem;
+}
+
+.subcategory-checkbox {
+    position: absolute;
+    margin-left: 10px;
+    margin-top: 5px;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.subcategory-content {
+    margin-left: 30px;
+}
+
 .categories-container {
     width: 100%;
     max-width: 500px;

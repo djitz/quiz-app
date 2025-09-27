@@ -1,22 +1,61 @@
 {
-  "questionSets": [
+  "categories": [
     {
-      "id": "general-knowledge",
-      "file": "question-sets/general-knowledge.json",
-      "name": "General Knowledge",
-      "description": "Test your basic knowledge on various topics"
+      "id": "knowledge",
+      "name": "Knowledge",
+      "description": "Test your knowledge on various topics",
+      "sets": [
+        {
+          "id": "general-knowledge",
+          "file": "question-sets/general-knowledge.json",
+          "name": "General Knowledge",
+          "description": "Basic knowledge questions"
+        },
+        {
+          "id": "trivia",
+          "file": "question-sets/trivia.json",
+          "name": "Trivia",
+          "description": "Fun trivia questions"
+        }
+      ]
     },
     {
       "id": "science",
-      "file": "question-sets/science.json",
       "name": "Science",
-      "description": "Questions about science and nature"
+      "description": "Questions about science and nature",
+      "sets": [
+        {
+          "id": "science-basics",
+          "file": "question-sets/science.json",
+          "name": "Basic Science",
+          "description": "Fundamental science questions"
+        },
+        {
+          "id": "advanced-science",
+          "file": "question-sets/advanced-science.json",
+          "name": "Advanced Science",
+          "description": "Challenging science questions"
+        }
+      ]
     },
     {
       "id": "history",
-      "file": "question-sets/history.json",
       "name": "History",
-      "description": "Historical events and figures"
+      "description": "Historical events and figures",
+      "sets": [
+        {
+          "id": "world-history",
+          "file": "question-sets/history.json",
+          "name": "World History",
+          "description": "Historical events from around the world"
+        },
+        {
+          "id": "ancient-history",
+          "file": "question-sets/ancient-history.json",
+          "name": "Ancient History",
+          "description": "History from ancient civilizations"
+        }
+      ]
     }
   ]
 }

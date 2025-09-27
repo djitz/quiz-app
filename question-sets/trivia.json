@@ -1,0 +1,52 @@
+[
+  {
+    "question": "What is the largest planet in our solar system?",
+    "options": [
+      {"id": "t1", "text": "Venus"},
+      {"id": "t2", "text": "Mars"},
+      {"id": "t3", "text": "Jupiter"},
+      {"id": "t4", "text": "Saturn"}
+    ],
+    "answer": "t3"
+  },
+  {
+    "question": "Which ocean is the largest?",
+    "options": [
+      {"id": "t5", "text": "Atlantic"},
+      {"id": "t6", "text": "Indian"},
+      {"id": "t7", "text": "Arctic"},
+      {"id": "t8", "text": "Pacific"}
+    ],
+    "answer": "t8"
+  },
+  {
+    "question": "What is the capital of Australia?",
+    "options": [
+      {"id": "t9", "text": "Sydney"},
+      {"id": "t10", "text": "Melbourne"},
+      {"id": "t11", "text": "Canberra"},
+      {"id": "t12", "text": "Perth"}
+    ],
+    "answer": "t11"
+  },
+  {
+    "question": "Which is the longest river in the world?",
+    "options": [
+      {"id": "t13", "text": "Amazon"},
+      {"id": "t14", "text": "Nile"},
+      {"id": "t15", "text": "Yangtze"},
+      {"id": "t16", "text": "Mississippi"}
+    ],
+    "answer": "t14"
+  },
+  {
+    "question": "What is the chemical symbol for gold?",
+    "options": [
+      {"id": "t17", "text": "Go"},
+      {"id": "t18", "text": "Gd"},
+      {"id": "t19", "text": "Au"},
+      {"id": "t20", "text": "Ag"}
+    ],
+    "answer": "t19"
+  }
+]
