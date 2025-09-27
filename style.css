@@ -247,6 +247,24 @@ p {
     color: #666;
 }
 
+.timer-mode-option {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.timer-mode-label {
+    display: block;
+    margin: 8px 0;
+    font-size: 1.1rem;
+    color: #555;
+    cursor: pointer;
+}
+
+.timer-mode-label input {
+    margin-right: 8px;
+    cursor: pointer;
+}
+
 .quiz-header {
     display: flex;
     justify-content: space-between;

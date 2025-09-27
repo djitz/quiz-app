@@ -20,6 +20,16 @@
                     <span>Randomize Question Order</span>
                 </label>
             </div>
+            <div class="timer-mode-option">
+                <label class="timer-mode-label">
+                    <input type="radio" name="timer-mode" value="auto" id="timer-auto" checked>
+                    <span>Auto Timer (timer starts immediately)</span>
+                </label>
+                <label class="timer-mode-label">
+                    <input type="radio" name="timer-mode" value="manual" id="timer-manual">
+                    <span>Manual Timer (timer starts when you click "Start Timer")</span>
+                </label>
+            </div>
             <div class="question-count-option">
                 <label for="question-count" class="question-count-label">
                     Number of questions (max based on selected sets):
@@ -41,6 +51,10 @@
                 <div class="options-container" id="options-container">
                     <!-- Options will be populated by JavaScript -->
                 </div>
+            </div>
+            
+            <div id="timer-controls" style="display: none; margin: 15px 0;">
+                <button id="start-timer-btn" class="btn">Start Timer</button>
             </div>
             
             <button id="next-btn" class="btn" disabled>Next</button>

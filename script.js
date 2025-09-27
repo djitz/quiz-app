@@ -2,11 +2,12 @@
 let quizData = [];
 let currentQuestion = 0;
 let score = 0;
-let timer;
+let timer = null; // Initialize timer variable
 let timeLeft;
 let selectedOption = null;
 let selectedCategorySets = []; // Changed to array to track selected question sets
 let randomizeQuestions = true; // Default to randomizing questions
+let timerMode = 'auto'; // Default to automatic timer
 let questionCount = 5; // Default number of questions
 let categories = []; // Changed from questionSets to categories for hierarchical structure
 let maxQuestionsAvailable = 0; // Track max questions based on selected question sets
@@ -30,6 +31,10 @@ const categoriesContainer = document.getElementById('categories-container');
 const startQuizBtn = document.getElementById('start-quiz-btn');
 const questionCountInput = document.getElementById('question-count');
 const maxQuestionsInfo = document.getElementById('max-questions-info');
+const timerAutoRadio = document.getElementById('timer-auto');
+const timerManualRadio = document.getElementById('timer-manual');
+const timerControlsDiv = document.getElementById('timer-controls');
+const startTimerBtn = document.getElementById('start-timer-btn');
 
 // Load categories configuration
 async function loadQuestionSetsConfig() {
@@ -230,6 +235,26 @@ async function initQuiz() {
     await loadQuestionSetsConfig();
     nextBtn.addEventListener('click', nextQuestion);
     restartBtn.addEventListener('click', restartQuiz);
+    
+    // Add timer mode selection listeners
+    timerAutoRadio.addEventListener('change', function() {
+        if (this.checked) {
+            timerMode = 'auto';
+        }
+    });
+    
+    timerManualRadio.addEventListener('change', function() {
+        if (this.checked) {
+            timerMode = 'manual';
+        }
+    });
+    
+    // Add start timer button listener
+    startTimerBtn.addEventListener('click', function() {
+        // Ensure we're using the current timer mode
+        timerMode = timerManualRadio.checked ? 'manual' : 'auto';
+        startTimerForQuestion();
+    });
 }
 
 // Function to shuffle an array (Fisher-Yates algorithm)
@@ -287,15 +312,27 @@ async function initQuiz() {
 
 // Start the quiz
 async function startQuiz() {
+    // Determine current timer mode based on radio button selection
+    timerMode = timerManualRadio.checked ? 'manual' : 'auto';
+    
     // Combine questions from all selected categories
     await loadCombinedQuizData();
+    
+    // Clear any existing timer
+    clearInterval(timer);
+    timer = null;
     
     categoryScreen.classList.remove('active');
     quizScreen.classList.add('active');
     currentQuestion = 0;
     score = 0;
     showQuestion();
-    startTimer();
+    
+    // Start timer based on mode for the first question
+    if (timerMode === 'auto') {
+        startTimerForQuestion(); // Start timer automatically for auto mode
+    }
+    // For manual mode, the timer will start when user clicks the button
 }
 
 // Load combined quiz data from multiple selected question sets
@@ -361,6 +398,9 @@ function shuffleArray(array) {
 
 // Show current question
 function showQuestion() {
+    // Determine current timer mode based on radio button selection
+    timerMode = timerManualRadio.checked ? 'manual' : 'auto';
+    
     resetState();
     const question = quizData[currentQuestion];
     questionText.textContent = question.question;
@@ -380,6 +420,19 @@ function showQuestion() {
     
     nextBtn.disabled = true;
     selectedOption = null;
+    
+    // Set up timer controls for the new question
+    // Only reset timeLeft if no timer is currently running
+    if (!timer) {  // If no timer interval is currently set
+        timeLeft = 30;
+    }
+    timerEl.textContent = timeLeft;  // Update display with current timeLeft value
+    
+    if (timerMode === 'manual') {
+        timerControlsDiv.style.display = 'block';
+    } else {
+        timerControlsDiv.style.display = 'none';
+    }
 }
 
 // Reset options container
@@ -438,10 +491,24 @@ function nextQuestion() {
     
     if (currentQuestion < quizData.length) {
         setTimeout(() => {
+            // Clear the current timer before moving to next question
+            clearInterval(timer);
+            timer = null;
+            
+            // Determine current timer mode based on radio button selection
+            timerMode = timerManualRadio.checked ? 'manual' : 'auto';
+            
             showQuestion();
-            startTimer();
+            // Start timer automatically in auto mode for next question
+            if (timerMode === 'auto') {
+                startTimerForQuestion();
+            }
         }, 1500); // Wait 1.5 seconds before showing next question
     } else {
+        // Clear timer before showing results
+        clearInterval(timer);
+        timer = null;
+        
         setTimeout(() => {
             showResults();
         }, 1500); // Wait 1.5 seconds before showing results
@@ -449,10 +516,14 @@ function nextQuestion() {
 }
 
 // Start the timer for each question
-function startTimer() {
+function startTimerForQuestion() {
     clearInterval(timer);
+    timer = null;
     timeLeft = 30; // 30 seconds per question
     timerEl.textContent = timeLeft;
+    
+    // Hide the start timer button after timer begins
+    timerControlsDiv.style.display = 'none';
     
     timer = setInterval(() => {
         timeLeft--;
@@ -460,6 +531,7 @@ function startTimer() {
         
         if (timeLeft <= 0) {
             clearInterval(timer);
+            timer = null;
             // Auto move to next question if time runs out
             if (selectedOption === null) {
                 // If no option selected, move to next question
@@ -488,10 +560,14 @@ function restartQuiz() {
     resultScreen.classList.remove('active');
     categoryScreen.classList.add('active');
     clearInterval(timer);
+    timer = null; // Reset timer variable
     selectedCategorySets = []; // Clear selected question sets
     maxQuestionsAvailable = 0; // Reset max question count
     // Re-render categories to reset selection state
     renderCategories();
+    
+    // Reset timer controls
+    timerControlsDiv.style.display = 'none';
 }
 
 // Initialize the app when page loads
