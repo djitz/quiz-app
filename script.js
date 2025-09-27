@@ -27,7 +27,6 @@ const totalEl = document.getElementById('total');
 const percentageEl = document.getElementById('percentage');
 const randomizeQuestionsCheckbox = document.getElementById('randomize-questions');
 const categoriesContainer = document.getElementById('categories-container');
-const subcategoriesContainer = document.getElementById('subcategories-container');
 const startQuizBtn = document.getElementById('start-quiz-btn');
 const questionCountInput = document.getElementById('question-count');
 const maxQuestionsInfo = document.getElementById('max-questions-info');
@@ -102,7 +101,7 @@ async function calculateMaxQuestions() {
     updateMaxQuestionsInfo();
 }
 
-// Render main categories dynamically
+// Render main categories dynamically with embedded subcategories
 function renderCategories() {
     categoriesContainer.innerHTML = ''; // Clear existing content
     
@@ -111,27 +110,40 @@ function renderCategories() {
         item.className = 'category-item';
         item.dataset.categoryId = category.id;
         
+        // Start with category info, subcategories will be added when needed
         item.innerHTML = `
             <input type="checkbox" class="category-checkbox" id="cat-${category.id}">
             <div class="category-content">
                 <h3>${category.name}</h3>
                 <p>${category.description}</p>
             </div>
+            <div class="subcategory-container" id="subcat-${category.id}" style="display: none;">
+                <h4>${category.name} Sets:</h4>
+            </div>
         `;
         
         const checkbox = item.querySelector('.category-checkbox');
+        const subContainer = item.querySelector(`#subcat-${category.id}`);
+        
         checkbox.addEventListener('change', (e) => {
             if (e.target.checked) {
                 // Show the subcategories for this category
-                showSubcategories(category);
+                loadAndShowSubcategories(category, subContainer);
                 item.classList.add('selected');
             } else {
                 // Hide the subcategories for this category
-                hideSubcategories(category);
+                subContainer.style.display = 'none';
                 // Remove any selected sets from this category
                 selectedCategorySets = selectedCategorySets.filter(set => 
                     !category.sets.some(subset => subset.file === set)
                 );
+                // Remove the selected class from any subcategory items
+                const subItems = subContainer.querySelectorAll('.subcategory-item');
+                subItems.forEach(subItem => {
+                    subItem.classList.remove('selected');
+                    const subCheckbox = subItem.querySelector('.subcategory-checkbox');
+                    if (subCheckbox) subCheckbox.checked = false;
+                });
                 item.classList.remove('selected');
             }
             
@@ -167,70 +179,50 @@ function renderCategories() {
     startQuizBtn.addEventListener('click', startQuiz);
 }
 
-// Show subcategories for a specific category
-function showSubcategories(category) {
-    let subContainer = document.querySelector(`.subcategory-container[data-category="${category.id}"]`);
+// Load and show subcategories for a specific category inline
+function loadAndShowSubcategories(category, subContainer) {
+    // Clear existing subcategories to avoid duplicates
+    subContainer.innerHTML = `<h4>${category.name} Sets:</h4>`;
     
-    // Create container if it doesn't exist
-    if (!subContainer) {
-        subContainer = document.createElement('div');
-        subContainer.className = 'subcategory-container';
-        subContainer.dataset.category = category.id;
+    category.sets.forEach(set => {
+        const subItem = document.createElement('div');
+        subItem.className = 'subcategory-item';
+        subItem.dataset.setFile = set.file;
         
-        subContainer.innerHTML = `
-            <h3>${category.name} Sets:</h3>
+        subItem.innerHTML = `
+            <input type="checkbox" class="subcategory-checkbox" id="set-${set.id}">
+            <div class="subcategory-content">
+                <h4>${set.name}</h4>
+                <p>${set.description}</p>
+            </div>
         `;
         
-        category.sets.forEach(set => {
-            const subItem = document.createElement('div');
-            subItem.className = 'subcategory-item';
-            subItem.dataset.setFile = set.file;
-            
-            subItem.innerHTML = `
-                <input type="checkbox" class="subcategory-checkbox" id="set-${set.id}">
-                <div class="subcategory-content">
-                    <h4>${set.name}</h4>
-                    <p>${set.description}</p>
-                </div>
-            `;
-            
-            const subCheckbox = subItem.querySelector('.subcategory-checkbox');
-            subCheckbox.addEventListener('change', (e) => {
-                if (e.target.checked) {
-                    // Add to selected question sets
-                    if (!selectedCategorySets.includes(set.file)) {
-                        selectedCategorySets.push(set.file);
-                    }
-                    subItem.classList.add('selected');
-                } else {
-                    // Remove from selected question sets
-                    selectedCategorySets = selectedCategorySets.filter(file => file !== set.file);
-                    subItem.classList.remove('selected');
+        const subCheckbox = subItem.querySelector('.subcategory-checkbox');
+        subCheckbox.addEventListener('change', (e) => {
+            if (e.target.checked) {
+                // Add to selected question sets
+                if (!selectedCategorySets.includes(set.file)) {
+                    selectedCategorySets.push(set.file);
                 }
-                
-                // Calculate max questions available based on selections
-                calculateMaxQuestions().then(() => {
-                    // Update start button state based on selections
-                    startQuizBtn.disabled = selectedCategorySets.length === 0;
-                });
-            });
+                subItem.classList.add('selected');
+            } else {
+                // Remove from selected question sets
+                selectedCategorySets = selectedCategorySets.filter(file => file !== set.file);
+                subItem.classList.remove('selected');
+            }
             
-            subContainer.appendChild(subItem);
+            // Calculate max questions available based on selections
+            calculateMaxQuestions().then(() => {
+                // Update start button state based on selections
+                startQuizBtn.disabled = selectedCategorySets.length === 0;
+            });
         });
         
-        subcategoriesContainer.appendChild(subContainer);
-    }
+        subContainer.appendChild(subItem);
+    });
     
-    // Always ensure the container is visible when category is selected
-    subContainer.classList.add('active');
-}
-
-// Hide subcategories for a specific category
-function hideSubcategories(category) {
-    const subContainer = document.querySelector(`.subcategory-container[data-category="${category.id}"]`);
-    if (subContainer) {
-        subContainer.classList.remove('active');
-    }
+    // Show the container
+    subContainer.style.display = 'block';
 }
 
 // Initialize the quiz
@@ -498,7 +490,6 @@ function restartQuiz() {
     clearInterval(timer);
     selectedCategorySets = []; // Clear selected question sets
     maxQuestionsAvailable = 0; // Reset max question count
-    subcategoriesContainer.innerHTML = ''; // Clear all subcategories
     // Re-render categories to reset selection state
     renderCategories();
 }
