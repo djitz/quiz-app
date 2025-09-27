@@ -7,6 +7,7 @@ let timeLeft;
 let selectedOption = null;
 let currentCategory = 'general-knowledge.json'; // Default category
 let randomizeQuestions = true; // Default to randomizing questions
+let questionSets = [];
 
 // DOM elements
 const categoryScreen = document.getElementById('category-screen');
@@ -23,23 +24,66 @@ const scoreEl = document.getElementById('score');
 const totalEl = document.getElementById('total');
 const percentageEl = document.getElementById('percentage');
 const randomizeQuestionsCheckbox = document.getElementById('randomize-questions');
+const categoriesContainer = document.getElementById('categories-container');
 
-// Add event listeners to category buttons
-function setupCategorySelection() {
-    const categoryButtons = document.querySelectorAll('.category-btn');
-    categoryButtons.forEach(button => {
+// Load question sets configuration
+async function loadQuestionSetsConfig() {
+    try {
+        const response = await fetch('config.json');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const config = await response.json();
+        questionSets = config.questionSets;
+        renderCategories();
+    } catch (error) {
+        console.error('Error loading question sets configuration:', error);
+        // Fallback to default question sets if config loading fails
+        questionSets = [
+            {
+                id: "general-knowledge",
+                file: "general-knowledge.json",
+                name: "General Knowledge",
+                description: "Test your basic knowledge on various topics"
+            }
+        ];
+        renderCategories();
+    }
+}
+
+// Render category buttons dynamically
+function renderCategories() {
+    categoriesContainer.innerHTML = ''; // Clear existing content
+    
+    questionSets.forEach(set => {
+        const button = document.createElement('button');
+        button.className = 'category-btn';
+        button.dataset.category = set.file;
+        button.innerHTML = `
+            <h3>${set.name}</h3>
+            <p>${set.description}</p>
+        `;
         button.addEventListener('click', () => {
-            currentCategory = button.dataset.category;
+            currentCategory = set.file;
             // Check the randomizeQuestions checkbox state
             randomizeQuestions = randomizeQuestionsCheckbox.checked;
             startQuiz();
         });
+        
+        categoriesContainer.appendChild(button);
     });
     
     // Update the randomizeQuestions variable when checkbox changes
     randomizeQuestionsCheckbox.addEventListener('change', () => {
         randomizeQuestions = randomizeQuestionsCheckbox.checked;
     });
+}
+
+// Initialize the quiz
+async function initQuiz() {
+    await loadQuestionSetsConfig();
+    nextBtn.addEventListener('click', nextQuestion);
+    restartBtn.addEventListener('click', restartQuiz);
 }
 
 // Function to shuffle an array (Fisher-Yates algorithm)
@@ -90,7 +134,7 @@ async function loadQuizData() {
 
 // Initialize the quiz
 async function initQuiz() {
-    setupCategorySelection();
+    await loadQuestionSetsConfig();
     nextBtn.addEventListener('click', nextQuestion);
     restartBtn.addEventListener('click', restartQuiz);
 }
