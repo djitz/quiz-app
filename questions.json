@@ -1,42 +1,82 @@
 [
   {
     "question": "What is the capital of France?",
-    "options": ["Berlin", "Madrid", "Paris", "Rome"],
-    "answer": "Paris"
+    "options": [
+      {"id": "a1", "text": "Berlin"},
+      {"id": "a2", "text": "Madrid"},
+      {"id": "a3", "text": "Paris"},
+      {"id": "a4", "text": "Rome"}
+    ],
+    "answer": "a3"
   },
   {
     "question": "Which planet is known as the Red Planet?",
-    "options": ["Earth", "Mars", "Jupiter", "Venus"],
-    "answer": "Mars"
+    "options": [
+      {"id": "b1", "text": "Earth"},
+      {"id": "b2", "text": "Mars"},
+      {"id": "b3", "text": "Jupiter"},
+      {"id": "b4", "text": "Venus"}
+    ],
+    "answer": "b2"
   },
   {
     "question": "What is the largest mammal in the world?",
-    "options": ["Elephant", "Blue Whale", "Giraffe", "Hippopotamus"],
-    "answer": "Blue Whale"
+    "options": [
+      {"id": "c1", "text": "Elephant"},
+      {"id": "c2", "text": "Blue Whale"},
+      {"id": "c3", "text": "Giraffe"},
+      {"id": "c4", "text": "Hippopotamus"}
+    ],
+    "answer": "c2"
   },
   {
     "question": "Which element has the chemical symbol 'O'?",
-    "options": ["Gold", "Oxygen", "Osmium", "Oganesson"],
-    "answer": "Oxygen"
+    "options": [
+      {"id": "d1", "text": "Gold"},
+      {"id": "d2", "text": "Oxygen"},
+      {"id": "d3", "text": "Osmium"},
+      {"id": "d4", "text": "Oganesson"}
+    ],
+    "answer": "d2"
   },
   {
     "question": "Who painted the Mona Lisa?",
-    "options": ["Vincent van Gogh", "Pablo Picasso", "Leonardo da Vinci", "Michelangelo"],
-    "answer": "Leonardo da Vinci"
+    "options": [
+      {"id": "e1", "text": "Vincent van Gogh"},
+      {"id": "e2", "text": "Pablo Picasso"},
+      {"id": "e3", "text": "Leonardo da Vinci"},
+      {"id": "e4", "text": "Michelangelo"}
+    ],
+    "answer": "e3"
   },
   {
     "question": "What is the largest ocean on Earth?",
-    "options": ["Atlantic Ocean", "Indian Ocean", "Arctic Ocean", "Pacific Ocean"],
-    "answer": "Pacific Ocean"
+    "options": [
+      {"id": "f1", "text": "Atlantic Ocean"},
+      {"id": "f2", "text": "Indian Ocean"},
+      {"id": "f3", "text": "Arctic Ocean"},
+      {"id": "f4", "text": "Pacific Ocean"}
+    ],
+    "answer": "f4"
   },
   {
     "question": "How many elements are in the periodic table?",
-    "options": ["108", "118", "128", "98"],
-    "answer": "118"
+    "options": [
+      {"id": "g1", "text": "108"},
+      {"id": "g2", "text": "118"},
+      {"id": "g3", "text": "128"},
+      {"id": "g4", "text": "98"}
+    ],
+    "answer": "g2"
   },
   {
     "question": "What is the smallest country in the world?",
-    "options": ["Monaco", "Vatican City", "San Marino", "Liechtenstein"],
-    "answer": "Vatican City"
+    "options": [
+      {"id": "h1", "text": "Monaco"},
+      {"id": "h2", "text": "Vatican City"},
+      {"id": "h3", "text": "San Marino"},
+      {"id": "h4", "text": "Liechtenstein"}
+    ],
+    "answer": "h2"
   }
 ]

@@ -37,8 +37,13 @@ async function loadQuizData() {
         quizData = [
             {
                 question: "Failed to load questions from JSON file",
-                options: ["Retry", "Reload page", "Check network", "Error occurred"],
-                answer: "Error occurred"
+                options: [
+                    {"id": "x1", "text": "Retry"},
+                    {"id": "x2", "text": "Reload page"},
+                    {"id": "x3", "text": "Check network"},
+                    {"id": "x4", "text": "Error occurred"}
+                ],
+                answer: "x4"
             }
         ];
         totalQuestionsEl.textContent = quizData.length;
@@ -73,7 +78,8 @@ function showQuestion() {
     question.options.forEach(option => {
         const button = document.createElement('button');
         button.classList.add('option');
-        button.textContent = option;
+        button.textContent = option.text;
+        button.dataset.optionId = option.id; // Store the option ID in data attribute
         button.addEventListener('click', selectOption);
         optionsContainer.appendChild(button);
     });
@@ -98,28 +104,30 @@ function selectOption(e) {
     
     // Add selected class to clicked option
     e.target.classList.add('selected');
-    selectedOption = e.target.textContent;
+    selectedOption = e.target.dataset.optionId; // Use the option ID instead of text
     nextBtn.disabled = false;
 }
 
 // Move to next question
 function nextQuestion() {
-    // Check if answer is correct
-    if (selectedOption === quizData[currentQuestion].answer) {
+    const question = quizData[currentQuestion];
+    
+    // Check if answer is correct by comparing option IDs
+    if (selectedOption === question.answer) {
         score++;
-        // Highlight correct answer
+        // Highlight correct answer by finding the option button with matching ID
         document.querySelectorAll('.option').forEach(option => {
-            if (option.textContent === quizData[currentQuestion].answer) {
+            if (option.dataset.optionId === question.answer) {
                 option.classList.add('correct');
             }
         });
     } else {
         // Highlight correct answer and mark selected as incorrect
         document.querySelectorAll('.option').forEach(option => {
-            if (option.textContent === quizData[currentQuestion].answer) {
+            if (option.dataset.optionId === question.answer) {
                 option.classList.add('correct');
             }
-            if (option.textContent === selectedOption) {
+            if (option.dataset.optionId === selectedOption) {
                 option.classList.add('incorrect');
             }
         });
