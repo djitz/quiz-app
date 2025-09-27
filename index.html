@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div id="start-screen" class="screen active">
+            <h1>Quiz Challenge</h1>
+            <p>Test your knowledge with this interactive quiz!</p>
+            <button id="start-btn" class="btn">Start Quiz</button>
+        </div>
+
+        <div id="quiz-screen" class="screen">
+            <div class="quiz-header">
+                <div class="question-counter">Question <span id="current-question">1</span> of <span id="total-questions">5</span></div>
+                <div class="timer">Time: <span id="timer">30</span>s</div>
+            </div>
+            
+            <div class="question-container">
+                <h2 id="question-text">Question will appear here</h2>
+                <div class="options-container" id="options-container">
+                    <!-- Options will be populated by JavaScript -->
+                </div>
+            </div>
+            
+            <button id="next-btn" class="btn" disabled>Next</button>
+        </div>
+
+        <div id="result-screen" class="screen">
+            <h1>Quiz Completed!</h1>
+            <p class="result-text">Your score: <span id="score">0</span> out of <span id="total">5</span></p>
+            <p class="percentage">Percentage: <span id="percentage">0</span>%</h2>
+            <button id="restart-btn" class="btn">Restart Quiz</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
