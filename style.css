@@ -112,6 +112,26 @@ p {
     margin: 0 auto;
 }
 
+.randomize-option {
+    margin-top: 25px;
+}
+
+.randomize-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 1.1rem;
+    color: #555;
+    cursor: pointer;
+}
+
+.randomize-label input {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
 .quiz-header {
     display: flex;
     justify-content: space-between;

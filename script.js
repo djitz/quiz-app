@@ -6,6 +6,7 @@ let timer;
 let timeLeft;
 let selectedOption = null;
 let currentCategory = 'general-knowledge.json'; // Default category
+let randomizeQuestions = true; // Default to randomizing questions
 
 // DOM elements
 const categoryScreen = document.getElementById('category-screen');
@@ -21,6 +22,7 @@ const timerEl = document.getElementById('timer');
 const scoreEl = document.getElementById('score');
 const totalEl = document.getElementById('total');
 const percentageEl = document.getElementById('percentage');
+const randomizeQuestionsCheckbox = document.getElementById('randomize-questions');
 
 // Add event listeners to category buttons
 function setupCategorySelection() {
@@ -28,9 +30,26 @@ function setupCategorySelection() {
     categoryButtons.forEach(button => {
         button.addEventListener('click', () => {
             currentCategory = button.dataset.category;
+            // Check the randomizeQuestions checkbox state
+            randomizeQuestions = randomizeQuestionsCheckbox.checked;
             startQuiz();
         });
     });
+    
+    // Update the randomizeQuestions variable when checkbox changes
+    randomizeQuestionsCheckbox.addEventListener('change', () => {
+        randomizeQuestions = randomizeQuestionsCheckbox.checked;
+    });
+}
+
+// Function to shuffle an array (Fisher-Yates algorithm)
+function shuffleArray(array) {
+    const newArray = [...array]; // Create a copy to avoid mutating the original
+    for (let i = newArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+    }
+    return newArray;
 }
 
 // Load quiz data from selected JSON file
@@ -40,7 +59,15 @@ async function loadQuizData() {
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        quizData = await response.json();
+        let loadedData = await response.json();
+        
+        // Randomize question order if the option is selected
+        if (randomizeQuestions) {
+            quizData = shuffleArray(loadedData);
+        } else {
+            quizData = loadedData;
+        }
+        
         totalQuestionsEl.textContent = quizData.length;
     } catch (error) {
         console.error('Error loading quiz data:', error);
