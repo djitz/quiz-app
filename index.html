@@ -8,10 +8,23 @@
 </head>
 <body>
     <div class="container">
-        <div id="start-screen" class="screen active">
+        <div id="category-screen" class="screen active">
             <h1>Quiz Challenge</h1>
-            <p>Test your knowledge with this interactive quiz!</p>
-            <button id="start-btn" class="btn">Start Quiz</button>
+            <p>Choose a category to test your knowledge!</p>
+            <div class="categories-container">
+                <button class="category-btn" data-category="general-knowledge.json">
+                    <h3>General Knowledge</h3>
+                    <p>Test your basic knowledge on various topics</p>
+                </button>
+                <button class="category-btn" data-category="science.json">
+                    <h3>Science</h3>
+                    <p>Questions about science and nature</p>
+                </button>
+                <button class="category-btn" data-category="history.json">
+                    <h3>History</h3>
+                    <p>Historical events and figures</p>
+                </button>
+            </div>
         </div>
 
         <div id="quiz-screen" class="screen">

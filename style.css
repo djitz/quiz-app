@@ -73,6 +73,45 @@ p {
     box-shadow: none;
 }
 
+.category-btn {
+    display: block;
+    width: 100%;
+    max-width: 400px;
+    margin: 15px auto;
+    padding: 20px;
+    text-align: left;
+    background: white;
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.category-btn:hover {
+    transform: translateY(-5px);
+    border-color: #2575fc;
+    box-shadow: 0 8px 15px rgba(37, 117, 252, 0.2);
+}
+
+.category-btn h3 {
+    color: #333;
+    margin: 0 0 10px 0;
+    font-size: 1.5rem;
+}
+
+.category-btn p {
+    color: #666;
+    margin: 0;
+    font-size: 1rem;
+}
+
+.categories-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
 .quiz-header {
     display: flex;
     justify-content: space-between;

@@ -5,12 +5,12 @@ let score = 0;
 let timer;
 let timeLeft;
 let selectedOption = null;
+let currentCategory = 'general-knowledge.json'; // Default category
 
 // DOM elements
-const startScreen = document.getElementById('start-screen');
+const categoryScreen = document.getElementById('category-screen');
 const quizScreen = document.getElementById('quiz-screen');
 const resultScreen = document.getElementById('result-screen');
-const startBtn = document.getElementById('start-btn');
 const nextBtn = document.getElementById('next-btn');
 const restartBtn = document.getElementById('restart-btn');
 const questionText = document.getElementById('question-text');
@@ -22,10 +22,21 @@ const scoreEl = document.getElementById('score');
 const totalEl = document.getElementById('total');
 const percentageEl = document.getElementById('percentage');
 
-// Load quiz data from JSON file
+// Add event listeners to category buttons
+function setupCategorySelection() {
+    const categoryButtons = document.querySelectorAll('.category-btn');
+    categoryButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            currentCategory = button.dataset.category;
+            startQuiz();
+        });
+    });
+}
+
+// Load quiz data from selected JSON file
 async function loadQuizData() {
     try {
-        const response = await fetch('questions.json');
+        const response = await fetch(currentCategory);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -52,15 +63,17 @@ async function loadQuizData() {
 
 // Initialize the quiz
 async function initQuiz() {
-    await loadQuizData();
-    startBtn.addEventListener('click', startQuiz);
+    setupCategorySelection();
     nextBtn.addEventListener('click', nextQuestion);
     restartBtn.addEventListener('click', restartQuiz);
 }
 
 // Start the quiz
-function startQuiz() {
-    startScreen.classList.remove('active');
+async function startQuiz() {
+    // Load the selected category's questions
+    await loadQuizData();
+    
+    categoryScreen.classList.remove('active');
     quizScreen.classList.add('active');
     currentQuestion = 0;
     score = 0;
@@ -192,7 +205,7 @@ function showResults() {
 // Restart the quiz
 function restartQuiz() {
     resultScreen.classList.remove('active');
-    startScreen.classList.add('active');
+    categoryScreen.classList.add('active');
     clearInterval(timer);
 }
 

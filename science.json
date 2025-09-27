@@ -1,0 +1,82 @@
+[
+  {
+    "question": "What is the chemical symbol for gold?",
+    "options": [
+      {"id": "s1", "text": "Go"},
+      {"id": "s2", "text": "Gd"},
+      {"id": "s3", "text": "Au"},
+      {"id": "s4", "text": "Ag"}
+    ],
+    "answer": "s3"
+  },
+  {
+    "question": "What is the hardest natural substance on Earth?",
+    "options": [
+      {"id": "s5", "text": "Gold"},
+      {"id": "s6", "text": "Iron"},
+      {"id": "s7", "text": "Diamond"},
+      {"id": "s8", "text": "Platinum"}
+    ],
+    "answer": "s7"
+  },
+  {
+    "question": "Which planet is known as the Red Planet?",
+    "options": [
+      {"id": "s9", "text": "Venus"},
+      {"id": "s10", "text": "Mars"},
+      {"id": "s11", "text": "Jupiter"},
+      {"id": "s12", "text": "Saturn"}
+    ],
+    "answer": "s10"
+  },
+  {
+    "question": "What is the most abundant gas in the Earth's atmosphere?",
+    "options": [
+      {"id": "s13", "text": "Oxygen"},
+      {"id": "s14", "text": "Nitrogen"},
+      {"id": "s15", "text": "Carbon Dioxide"},
+      {"id": "s16", "text": "Hydrogen"}
+    ],
+    "answer": "s14"
+  },
+  {
+    "question": "How many bones are in the human body?",
+    "options": [
+      {"id": "s17", "text": "156"},
+      {"id": "s18", "text": "206"},
+      {"id": "s19", "text": "256"},
+      {"id": "s20", "text": "306"}
+    ],
+    "answer": "s18"
+  },
+  {
+    "question": "What is the largest organ in the human body?",
+    "options": [
+      {"id": "s21", "text": "Liver"},
+      {"id": "s22", "text": "Brain"},
+      {"id": "s23", "text": "Skin"},
+      {"id": "s24", "text": "Intestines"}
+    ],
+    "answer": "s23"
+  },
+  {
+    "question": "What is the currency of Sweden?",
+    "options": [
+      {"id": "s25", "text": "Krone"},
+      {"id": "s26", "text": "Euro"},
+      {"id": "s27", "text": "Pound"},
+      {"id": "s28", "text": "Dollar"}
+    ],
+    "answer": "s25"
+  },
+  {
+    "question": "What does DNA stand for?",
+    "options": [
+      {"id": "s29", "text": "Deoxyribonucleic acid"},
+      {"id": "s30", "text": "Different New Acid"},
+      {"id": "s31", "text": "Deoxyribose Nucleic Acid"},
+      {"id": "s32", "text": "Doxyribose Acid"}
+    ],
+    "answer": "s29"
+  }
+]

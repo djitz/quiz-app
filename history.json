@@ -1,0 +1,82 @@
+[
+  {
+    "question": "In which year did World War II end?",
+    "options": [
+      {"id": "h1", "text": "1943"},
+      {"id": "h2", "text": "1945"},
+      {"id": "h3", "text": "1947"},
+      {"id": "h4", "text": "1950"}
+    ],
+    "answer": "h2"
+  },
+  {
+    "question": "Who was the first President of the United States?",
+    "options": [
+      {"id": "h5", "text": "Thomas Jefferson"},
+      {"id": "h6", "text": "Abraham Lincoln"},
+      {"id": "h7", "text": "George Washington"},
+      {"id": "h8", "text": "John Adams"}
+    ],
+    "answer": "h7"
+  },
+  {
+    "question": "Which ancient civilization built the Machu Picchu?",
+    "options": [
+      {"id": "h9", "text": "Aztecs"},
+      {"id": "h10", "text": "Mayans"},
+      {"id": "h11", "text": "Incas"},
+      {"id": "h12", "text": "Egyptians"}
+    ],
+    "answer": "h11"
+  },
+  {
+    "question": "The Renaissance period originated in which country?",
+    "options": [
+      {"id": "h13", "text": "France"},
+      {"id": "h14", "text": "Germany"},
+      {"id": "h15", "text": "Italy"},
+      {"id": "h16", "text": "Spain"}
+    ],
+    "answer": "h15"
+  },
+  {
+    "question": "Who was known as the 'Napoleon of Crime' in Victorian London?",
+    "options": [
+      {"id": "h17", "text": "Jack the Ripper"},
+      {"id": "h18", "text": "Charles Manson"},
+      {"id": "h19", "text": "Moriarty"},
+      {"id": "h20", "text": "Tommy Shelby"}
+    ],
+    "answer": "h19"
+  },
+  {
+    "question": "Which empire was ruled by Julius Caesar?",
+    "options": [
+      {"id": "h21", "text": "Roman Empire"},
+      {"id": "h22", "text": "Greek Empire"},
+      {"id": "h23", "text": "Persian Empire"},
+      {"id": "h24", "text": "Ottoman Empire"}
+    ],
+    "answer": "h21"
+  },
+  {
+    "question": "The ancient city of Troy was located in which modern day country?",
+    "options": [
+      {"id": "h25", "text": "Greece"},
+      {"id": "h26", "text": "Turkey"},
+      {"id": "h27", "text": "Egypt"},
+      {"id": "h28", "text": "Italy"}
+    ],
+    "answer": "h26"
+  },
+  {
+    "question": "Which treaty ended the First World War?",
+    "options": [
+      {"id": "h29", "text": "Treaty of Rome"},
+      {"id": "h30", "text": "Treaty of Paris"},
+      {"id": "h31", "text": "Treaty of Versailles"},
+      {"id": "h32", "text": "Treaty of London"}
+    ],
+    "answer": "h31"
+  }
+]
