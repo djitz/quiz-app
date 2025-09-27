@@ -95,5 +95,152 @@
     ],
     "answer": "j1",
     "type": "fill-in-the-blank"
+  },
+  {
+    "question": "The place where Nabal's sheepshearers were located was called ______. (1 Samuel 25:2)",
+    "options": [
+      {"id": "k1", "text": "Ramah"},
+      {"id": "k2", "text": "Carmel"},
+      {"id": "k3", "text": "Hebron"}
+    ],
+    "answer": "k2",
+    "type": "fill-in-the-blank"
+  },
+  {
+    "question": "David and his men had protected Nabal's ______, _______, and ______ in the wilderness. (1 Samuel 25:15-16)",
+    "options": [
+      {"id": "l1", "text": "flocks, herds, and servants"},
+      {"id": "l2", "text": "wives, children, and property"},
+      {"id": "l3", "text": "fields, houses, and sheep"}
+    ],
+    "answer": "l1",
+    "type": "fill-in-the-blank"
+  },
+  {
+    "question": "When David heard Nabal's response, he commanded his men to ______ their ______. (1 Samuel 25:13)",
+    "options": [
+      {"id": "m1", "text": "take, swords"},
+      {"id": "m2", "text": "put on, armor"},
+      {"id": "m3", "text": "grasp, shields"}
+    ],
+    "answer": "m1",
+    "type": "fill-in-the-blank"
+  },
+  {
+    "question": "Abigail told David that God would make for him a sure ______. (1 Samuel 25:28)",
+    "options": [
+      {"id": "n1", "text": "house"},
+      {"id": "n2", "text": "kingdom"},
+      {"id": "n3", "text": "blessing"}
+    ],
+    "answer": "n1",
+    "type": "fill-in-the-blank"
+  },
+  {
+    "question": "True or False: Abigail told David that his bloodguiltiness would be tied up in the bundle of the living with the Lord. (1 Samuel 25:29)",
+    "options": [
+      {"id": "o1", "text": "True"},
+      {"id": "o2", "text": "False"}
+    ],
+    "answer": "o1",
+    "type": "true-false"
+  },
+  {
+    "question": "David blessed ______ and said that she had prevented him from coming to ______ with his own ______. (1 Samuel 25:32-33)",
+    "options": [
+      {"id": "p1", "text": "Abigail, bloodshed, hand"},
+      {"id": "p2", "text": "Nabal, revenge, sword"},
+      {"id": "p3", "text": "Abigail, harm, power"}
+    ],
+    "answer": "p1",
+    "type": "fill-in-the-blank"
+  },
+  {
+    "question": "What did Abigail do when she came home and saw Nabal eating and drinking like a king? (1 Samuel 25:36)",
+    "options": [
+      {"id": "q1", "text": "She celebrated with him"},
+      {"id": "q2", "text": "She told him nothing until morning"},
+      {"id": "q3", "text": "She left his presence"}
+    ],
+    "answer": "q2",
+    "type": "multiple-choice"
+  },
+  {
+    "question": "True or False: The Lord struck Nabal and he died after hearing what Abigail told him. (1 Samuel 25:37-38)",
+    "options": [
+      {"id": "r1", "text": "True"},
+      {"id": "r2", "text": "False"}
+    ],
+    "answer": "r1",
+    "type": "true-false"
+  },
+  {
+    "question": "When Nabal's ______ was over, David sent and ______ Abigail to become his wife. (1 Samuel 25:39)",
+    "options": [
+      {"id": "s1", "text": "funeral, took"},
+      {"id": "s2", "text": "feast, married"},
+      {"id": "s3", "text": "sickness, called"}
+    ],
+    "answer": "s1",
+    "type": "fill-in-the-blank"
+  },
+  {
+    "question": "Abigail brought with her ______ _______, _______, and _______ to David. (1 Samuel 25:41)",
+    "options": [
+      {"id": "t1", "text": "five female servants, grain, wine, and parched grain"},
+      {"id": "t2", "text": "ten donkeys, gold, silver, and precious stones"},
+      {"id": "t3", "text": "five maidservants, bread, wine, and oil"}
+    ],
+    "answer": "t1",
+    "type": "fill-in-the-blank"
+  },
+  {
+    "question": "David's anger ______ _______, and he did not carry out his plan to destroy Nabal's household. (1 Samuel 25:34)",
+    "options": [
+      {"id": "u1", "text": "cooled down"},
+      {"id": "u2", "text": "subsided, turned back"},
+      {"id": "u3", "text": "was restrained"}
+    ],
+    "answer": "u2",
+    "type": "fill-in-the-blank"
+  },
+  {
+    "question": "The name ______ means 'my father is ______'. (1 Samuel 25:25)",
+    "options": [
+      {"id": "v1", "text": "David, king"},
+      {"id": "v2", "text": "Nabal, fool"},
+      {"id": "v3", "text": "Abigail, joy"}
+    ],
+    "answer": "v2",
+    "type": "fill-in-the-blank"
+  },
+  {
+    "question": "Abigail told David that God would ______ for him a sure ______, and would keep him ______ from ______. (1 Samuel 25:28-29)",
+    "options": [
+      {"id": "w1", "text": "make, house, safe, harm"},
+      {"id": "w2", "text": "bless, kingdom, alive, enemies"},
+      {"id": "w3", "text": "establish, throne, protected, danger"}
+    ],
+    "answer": "w1",
+    "type": "fill-in-the-blank"
+  },
+  {
+    "question": "Nabal's heart ______ within him when his wife told him all these things, and he became ______. (1 Samuel 25:37)",
+    "options": [
+      {"id": "x1", "text": "failed, like a stone"},
+      {"id": "x2", "text": "was troubled, paralyzed"},
+      {"id": "x3", "text": "fainted, ill"}
+    ],
+    "answer": "x1",
+    "type": "fill-in-the-blank"
+  },
+  {
+    "question": "True or False: David refrained from shedding blood after Abigail's counsel because he recognized the Lord's hand in her actions. (1 Samuel 25:32-34)",
+    "options": [
+      {"id": "y1", "text": "True"},
+      {"id": "y2", "text": "False"}
+    ],
+    "answer": "y1",
+    "type": "true-false"
   }
 ]
