@@ -7,7 +7,9 @@ let timeLeft;
 let selectedOption = null;
 let selectedCategories = []; // Changed to array to track multiple selections
 let randomizeQuestions = true; // Default to randomizing questions
+let questionCount = 5; // Default number of questions
 let questionSets = [];
+let maxQuestionsAvailable = 0; // Track max questions based on selected categories
 
 // DOM elements
 const categoryScreen = document.getElementById('category-screen');
@@ -26,6 +28,8 @@ const percentageEl = document.getElementById('percentage');
 const randomizeQuestionsCheckbox = document.getElementById('randomize-questions');
 const categoriesContainer = document.getElementById('categories-container');
 const startQuizBtn = document.getElementById('start-quiz-btn');
+const questionCountInput = document.getElementById('question-count');
+const maxQuestionsInfo = document.getElementById('max-questions-info');
 
 // Load question sets configuration
 async function loadQuestionSetsConfig() {
@@ -52,6 +56,44 @@ async function loadQuestionSetsConfig() {
     }
 }
 
+// Update max questions info display
+function updateMaxQuestionsInfo() {
+    maxQuestionsInfo.textContent = `Max: ${maxQuestionsAvailable}`;
+    
+    // Set input constraints
+    if (questionCountInput) {
+        questionCountInput.max = maxQuestionsAvailable;
+        
+        // If current value exceeds max, adjust it
+        if (parseInt(questionCountInput.value) > maxQuestionsAvailable) {
+            questionCountInput.value = maxQuestionsAvailable;
+        }
+        
+        // Set min to 1
+        questionCountInput.min = 1;
+    }
+}
+
+// Calculate max questions available based on selected categories
+async function calculateMaxQuestions() {
+    maxQuestionsAvailable = 0;
+    
+    for (const category of selectedCategories) {
+        try {
+            const response = await fetch(category);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const categoryData = await response.json();
+            maxQuestionsAvailable += categoryData.length;
+        } catch (error) {
+            console.error(`Error calculating questions from ${category}:`, error);
+        }
+    }
+    
+    updateMaxQuestionsInfo();
+}
+
 // Render category checkboxes dynamically
 function renderCategories() {
     categoriesContainer.innerHTML = ''; // Clear existing content
@@ -70,7 +112,7 @@ function renderCategories() {
         `;
         
         const checkbox = item.querySelector('.category-checkbox');
-        checkbox.addEventListener('change', (e) => {
+        checkbox.addEventListener('change', async (e) => {
             if (e.target.checked) {
                 // Add to selected categories
                 if (!selectedCategories.includes(set.file)) {
@@ -82,6 +124,10 @@ function renderCategories() {
                 selectedCategories = selectedCategories.filter(cat => cat !== set.file);
                 item.classList.remove('selected');
             }
+            
+            // Calculate max questions available based on selections
+            await calculateMaxQuestions();
+            
             // Update start button state based on selections
             startQuizBtn.disabled = selectedCategories.length === 0;
         });
@@ -92,6 +138,19 @@ function renderCategories() {
     // Update the randomizeQuestions variable when checkbox changes
     randomizeQuestionsCheckbox.addEventListener('change', () => {
         randomizeQuestions = randomizeQuestionsCheckbox.checked;
+    });
+    
+    // Set up question count input
+    questionCountInput.addEventListener('input', function() {
+        // Validate input to be within bounds
+        let value = parseInt(this.value);
+        if (value > maxQuestionsAvailable) {
+            this.value = maxQuestionsAvailable;
+        }
+        if (value < 1) {
+            this.value = 1;
+        }
+        questionCount = parseInt(this.value);
     });
     
     // Add event listener to start quiz button
@@ -192,6 +251,13 @@ async function loadCombinedQuizData() {
     // Randomize question order if the option is selected
     if (randomizeQuestions && quizData.length > 0) {
         quizData = shuffleArray(quizData);
+    }
+    
+    // Limit to the requested number of questions
+    const requestedQuestionCount = parseInt(questionCountInput.value) || questionCount;
+    if (quizData.length > requestedQuestionCount) {
+        // Take only the requested number of questions
+        quizData = quizData.slice(0, requestedQuestionCount);
     }
     
     totalQuestionsEl.textContent = quizData.length;
@@ -355,6 +421,7 @@ function restartQuiz() {
     categoryScreen.classList.add('active');
     clearInterval(timer);
     selectedCategories = []; // Clear selected categories
+    maxQuestionsAvailable = 0; // Reset max question count
     // Re-render categories to reset selection state
     renderCategories();
 }

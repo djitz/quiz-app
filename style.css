@@ -155,6 +155,35 @@ p {
     margin-top: 20px;
 }
 
+.question-count-option {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.question-count-label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+    color: #555;
+}
+
+.question-count-input {
+    width: 100px;
+    padding: 10px;
+    font-size: 1.1rem;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    text-align: center;
+    margin: 0 10px;
+}
+
+.max-questions-info {
+    display: block;
+    margin-top: 5px;
+    font-size: 0.9rem;
+    color: #666;
+}
+
 .quiz-header {
     display: flex;
     justify-content: space-between;
