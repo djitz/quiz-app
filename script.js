@@ -81,6 +81,16 @@ async function startQuiz() {
     startTimer();
 }
 
+// Function to shuffle an array (Fisher-Yates algorithm)
+function shuffleArray(array) {
+    const newArray = [...array]; // Create a copy to avoid mutating the original
+    for (let i = newArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+    }
+    return newArray;
+}
+
 // Show current question
 function showQuestion() {
     resetState();
@@ -88,7 +98,10 @@ function showQuestion() {
     questionText.textContent = question.question;
     currentQuestionEl.textContent = currentQuestion + 1;
     
-    question.options.forEach(option => {
+    // Shuffle the options to randomize their order
+    const shuffledOptions = shuffleArray(question.options);
+    
+    shuffledOptions.forEach(option => {
         const button = document.createElement('button');
         button.classList.add('option');
         button.textContent = option.text;
