@@ -56,6 +56,19 @@
           "description": "History from ancient civilizations"
         }
       ]
+    },
+    {
+      "id": "bible",
+      "name": "Bible",
+      "description": "Bible stories and characters",
+      "sets": [
+        {
+          "id": "abigail-story",
+          "file": "question-sets/abigail-story.json",
+          "name": "Abigail's Story",
+          "description": "Questions about Abigail from 1 Samuel 25"
+        }
+      ]
     }
   ]
 }

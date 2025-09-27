@@ -1,0 +1,99 @@
+[
+  {
+    "question": "What was the name of Abigail's husband who was described as harsh and evil? (1 Samuel 25:3)",
+    "options": [
+      {"id": "a1", "text": "Nabal"},
+      {"id": "a2", "text": "David"},
+      {"id": "a3", "text": "Samuel"}
+    ],
+    "answer": "a1",
+    "type": "multiple-choice"
+  },
+  {
+    "question": "David had ______ men with him when he sought provisions from Nabal. (1 Samuel 25:13)",
+    "options": [
+      {"id": "b1", "text": "400"},
+      {"id": "b2", "text": "600"},
+      {"id": "b3", "text": "800"}
+    ],
+    "answer": "b2",
+    "type": "fill-in-the-blank"
+  },
+  {
+    "question": "True or False: Abigail was described as a woman of good understanding and beautiful in appearance. (1 Samuel 25:3)",
+    "options": [
+      {"id": "c1", "text": "True"},
+      {"id": "c2", "text": "False"}
+    ],
+    "answer": "c1",
+    "type": "true-false"
+  },
+  {
+    "question": "What did Abigail take to meet David as a peace offering? (1 Samuel 25:18)",
+    "options": [
+      {"id": "d1", "text": "Bread, wine, and sheep"},
+      {"id": "d2", "text": "Corn, raisin cakes, and figs"},
+      {"id": "d3", "text": "Bread, wine, sheep, and raisin cakes"}
+    ],
+    "answer": "d3",
+    "type": "multiple-choice"
+  },
+  {
+    "question": "David was on his way to destroy Nabal's household when ______ intercepted him with gifts and wise counsel. (1 Samuel 25:23)",
+    "options": [
+      {"id": "e1", "text": "Abigail"},
+      {"id": "e2", "text": "Nabal"},
+      {"id": "e3", "text": "Samuel"}
+    ],
+    "answer": "e1",
+    "type": "fill-in-the-blank"
+  },
+  {
+    "question": "True or False: Nabal refused David's men's request for provisions because he did not know them. (1 Samuel 25:10-11)",
+    "options": [
+      {"id": "f1", "text": "True"},
+      {"id": "f2", "text": "False"}
+    ],
+    "answer": "f1",
+    "type": "true-false"
+  },
+  {
+    "question": "After Nabal died, David ______ Abigail and she became his wife. (1 Samuel 25:39-40)",
+    "options": [
+      {"id": "g1", "text": "ignored"},
+      {"id": "g2", "text": "sent away"},
+      {"id": "g3", "text": "sent and took"}
+    ],
+    "answer": "g3",
+    "type": "fill-in-the-blank"
+  },
+  {
+    "question": "How many wives did David have after he took Abigail? (1 Samuel 25:42-43)",
+    "options": [
+      {"id": "h1", "text": "Two"},
+      {"id": "h2", "text": "Three"},
+      {"id": "h3", "text": "One"}
+    ],
+    "answer": "h1",
+    "type": "multiple-choice"
+  },
+  {
+    "question": "True or False: Abigail's wise intervention prevented David from shedding blood and taking vengeance. (1 Samuel 25:26, 32-34)",
+    "options": [
+      {"id": "i1", "text": "True"},
+      {"id": "i2", "text": "False"}
+    ],
+    "answer": "i1",
+    "type": "true-false"
+  },
+  {
+    "question": "Nabal's name means ______ in Hebrew. (1 Samuel 25:25)",
+    "options": [
+      {"id": "j1", "text": "Fool"},
+      {"id": "j2", "text": "Blessed"},
+      {"id": "j3", "text": "Strong"}
+    ],
+    "answer": "j1",
+    "type": "fill-in-the-blank"
+  }
+]
